@@ -70,7 +70,7 @@ RUN apk add --no-cache \
                 -e "s/;\?opcache.blacklist_filename=.*/opcache.blacklist_filename=\/etc\/php.d\/opcache\*.blacklist/" \
                 $(readlink -f /etc/php.ini);
 
-RUN mkdir -p ./dist
+RUN mkdir -p /newrelic-php-agent/dist
 
 RUN apk add --no-cache \
         gettext \
@@ -103,7 +103,7 @@ RUN if [ "$TARGETARCH" = "arm64" ]; then \
     git init && \
     make all && make agent-install && \
     mkdir -p 0777 /var/log/newrelic && \
-    cp bin/daemon ./dist/newrelic-daemon && \
+    cp bin/daemon /newrelic-php-agent/dist/newrelic-daemon && \
     cp /tmp/newrelic-php-agent-${NR_PHP_AGENT_VERSION}/agent/scripts/newrelic.ini.template $(readlink -f /etc/php.d/newrelic.ini) && \
     rm -rf /tmp/v${NR_PHP_AGENT_VERSION}.zip /tmp/newrelic-php-agent-${NR_PHP_AGENT_VERSION} && \
     apk del .build-deps-nr && \
@@ -111,6 +111,6 @@ RUN if [ "$TARGETARCH" = "arm64" ]; then \
     fi;
 
 # Post-install
-RUN cp $(readlink -f /etc/php.d/newrelic.ini) ./dist/newrelic.ini; \
-    cp $(php -r "echo ini_get ('extension_dir');")/newrelic.so ./dist/newrelic.so
+RUN cp $(readlink -f /etc/php.d/newrelic.ini) /newrelic-php-agent/dist/newrelic.ini; \
+    cp $(php -r "echo ini_get ('extension_dir');")/newrelic.so /newrelic-php-agent/dist/newrelic.so
 
