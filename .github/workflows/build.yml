@@ -6,7 +6,8 @@ on:
       - "*.*.*.*"
 
 env:
-  REPOSITORY: php-newrelic-agent
+  REGISTRY: nntoan
+  IMAGE_NAME: php-newrelic-agent
 
 jobs:
   docker:
@@ -23,11 +24,10 @@ jobs:
         with:
           # list of Docker images to use as base name for tags
           images: |
-            nntoan/$REPOSITORY
-            ghcr.io/nntoan/$REPOSITORY
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           # generate Docker tags based on the following events/attributes
           tags: |
-            type=match,pattern=\d.\d.\d.\d+
+            type=match,pattern=\d+.\d+.\d+.\d+
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2
