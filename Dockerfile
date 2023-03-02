@@ -90,7 +90,7 @@ RUN if [ "$TARGETARCH" = "amd64" ]; then \
     NR_INSTALL_USE_CP_NOT_LN=1 NR_INSTALL_SILENT=1 /newrelic-php5-${NR_PHP_AGENT_VERSION}-linux-musl/newrelic-install install && \
     rm -Rf /newrelic-php5-* && \
     apk del .build-deps-nr && \
-    sed -i "s/.*extension = "newrelic.so".*/;extension = "newrelic.so"/" $(readlink -f /etc/php.d/newrelic.ini) && \
+    sed -i "s/.*extension = "newrelic.so".*/;extension = "newrelic.so"/" $(readlink -f /etc/php.d/newrelic.ini); \
     fi;
 
 RUN if [ "$TARGETARCH" = "arm64" ]; then \
