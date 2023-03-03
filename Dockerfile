@@ -112,6 +112,6 @@ RUN if [ "$TARGETARCH" = "arm64" ]; then \
 
 # Post-install
 RUN cp $(readlink -f /etc/php.d/newrelic.ini) /newrelic-php-agent/dist/newrelic.ini; \
-    cp $(php -r "echo ini_get ('extension_dir');")/newrelic.so /newrelic-php-agent/dist/newrelic.so \
-    cp /usr/bin/newrelic-daemon /newrelic-php-agent/dist/newrelic-daemon
+    cp $(php -r "echo ini_get ('extension_dir');")/newrelic.so /newrelic-php-agent/dist/newrelic.so; \
+    cp /usr/bin/newrelic-daemon /newrelic-php-agent/dist/newrelic-daemon;
 
