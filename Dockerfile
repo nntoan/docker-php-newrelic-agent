@@ -3,7 +3,7 @@ FROM alpine:3.16.2
 MAINTAINER Toan Nguyen <hello@nntoan.com>
 
 # https://docs.newrelic.com/docs/release-notes/agent-release-notes/php-release-notes
-ENV NR_PHP_AGENT_VERSION 10.3.0.315
+ENV NR_PHP_AGENT_VERSION 10.6.0.318
 
 ARG TARGETARCH
 
@@ -83,7 +83,7 @@ RUN apk add --no-cache \
 # Install NewRelic
 RUN if [ "$TARGETARCH" = "amd64" ]; then \
     apk add --no-cache --virtual .build-deps-nr g++ autoconf automake make libtool nasm libpng-dev libc6-compat && \
-    curl -L https://download.newrelic.com/php_agent/release/newrelic-php5-${NR_PHP_AGENT_VERSION}-linux-musl.tar.gz >> /tmp/newrelic-php5-${NR_PHP_AGENT_VERSION}-linux-musl.tar.gz && \
+    curl -L https://download.newrelic.com/php_agent/archive/${NR_PHP_AGENT_VERSION}/newrelic-php5-${NR_PHP_AGENT_VERSION}-linux-musl.tar.gz >> /tmp/newrelic-php5-${NR_PHP_AGENT_VERSION}-linux-musl.tar.gz && \
     cd /tmp && \
     tar -xzvf ./newrelic-php5-${NR_PHP_AGENT_VERSION}-linux-musl.tar.gz && \
     NR_INSTALL_USE_CP_NOT_LN=1 NR_INSTALL_SILENT=1 ./newrelic-php5-${NR_PHP_AGENT_VERSION}-linux-musl/newrelic-install install && \
