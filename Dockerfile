@@ -3,7 +3,7 @@ FROM alpine:3.16.2
 MAINTAINER Toan Nguyen <hello@nntoan.com>
 
 # https://docs.newrelic.com/docs/release-notes/agent-release-notes/php-release-notes
-ENV NR_PHP_AGENT_VERSION 10.14.0.3
+ENV NR_PHP_AGENT_VERSION 10.3.0.315
 
 ARG TARGETARCH
 
