@@ -1,70 +1,68 @@
-FROM alpine:3.15.0
+FROM alpine:3.16.2
 
 MAINTAINER Toan Nguyen <hello@nntoan.com>
 
 # https://docs.newrelic.com/docs/release-notes/agent-release-notes/php-release-notes
-ENV NR_PHP_AGENT_VERSION 10.6.0.318
+ENV NR_PHP_AGENT_VERSION 10.14.0.3
 
 ARG TARGETARCH
 
 WORKDIR /newrelic-php-agent/
 
 RUN apk add --no-cache \
-        php7-fpm \
-        php7-bcmath \
-        php7-bz2 \
-        php7-calendar \
-        php7-cli \
-        php7-common \
-        php7-ctype \
-        php7-curl \
-        php7-dom \
-        php7-exif \
-        php7-fileinfo \
-        php7-ftp \
-        php7-gd \
-        php7-gettext \
-        php7-gmp \
-        php7-iconv \
-        php7-imagick \
-        php7-intl \
-        php7-json \
-        php7-mbstring \
-        php7-mysqli \
-        php7-openssl \
-        php7-pcntl \
-        php7-pdo \
-        php7-pdo_mysql \
-        php7-pdo_sqlite \
-        php7-phar \
-        php7-posix \
-        php7-session \
-        php7-shmop \
-        php7-simplexml \
-        php7-soap \
-        php7-sodium \
-        php7-sockets \
-        php7-sqlite3 \
-        php7-sysvmsg \
-        php7-sysvsem \
-        php7-sysvshm \
-        php7-tokenizer \
-        php7-xml \
-        php7-xmlreader \
-        php7-xmlrpc \
-        php7-xmlwriter \
-        php7-xsl \
-        php7-opcache \
-        php7-xdebug \
-        php7-redis \
-        php7-zip \
-        php7-pecl-igbinary \
-        php7-pecl-ssh2; \
-        ln -snf /usr/bin/php7 /usr/bin/php; \
-        ln -s /etc/php7/php.ini /etc/php.ini; \
-        ln -s /etc/php7 /etc/php; \
-        ln -s /etc/php7/conf.d /etc/php.d; \
-        ln -s /etc/php7/php-fpm.d /etc/php-fpm.d; \
+        php81-fpm \
+        php81-bcmath \
+        php81-bz2 \
+        php81-calendar \
+        php81-common \
+        php81-ctype \
+        php81-curl \
+        php81-dom \
+        php81-exif \
+        php81-fileinfo \
+        php81-ftp \
+        php81-gd \
+        php81-gettext \
+        php81-gmp \
+        php81-iconv \
+        php81-pecl-imagick \
+        php81-intl \
+        php81-mbstring \
+        php81-mysqli \
+        php81-openssl \
+        php81-pcntl \
+        php81-pdo \
+        php81-pdo_mysql \
+        php81-pdo_sqlite \
+        php81-phar \
+        php81-posix \
+        php81-session \
+        php81-shmop \
+        php81-simplexml \
+        php81-soap \
+        php81-sodium \
+        php81-sockets \
+        php81-sqlite3 \
+        php81-sysvmsg \
+        php81-sysvsem \
+        php81-sysvshm \
+        php81-tokenizer \
+        php81-xml \
+        php81-xmlreader \
+        php81-xmlwriter \
+        php81-xsl \
+        php81-opcache \
+        php81-pecl-xdebug \
+        php81-pecl-redis \
+        php81-zip \
+        php81-pecl-igbinary \
+        php81-pecl-ssh2 \
+        php81-phpdbg; \
+        ln -s /etc/php81/php.ini /etc/php.ini; \
+        ln -s /etc/php81 /etc/php; \
+        ln -s /etc/php81/conf.d /etc/php.d; \
+        ln -s /etc/php81/php-fpm.d /etc/php-fpm.d; \
+        ln -s /usr/bin/php81 /usr/local/bin/php; \
         sed -i \
                 -e "s/;\?date.timezone =.*/date.timezone = UTC/" \
                 -e "s/;\?opcache.blacklist_filename=.*/opcache.blacklist_filename=\/etc\/php.d\/opcache\*.blacklist/" \
@@ -95,7 +93,7 @@ RUN if [ "$TARGETARCH" = "amd64" ]; then \
     fi;
 
 RUN if [ "$TARGETARCH" = "arm64" ]; then \
-    apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community --virtual .build-deps-nr php7-dev git go musl-dev pcre2-dev pcre-dev build-base automake libtool && \
+    apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community --virtual .build-deps-nr php81-dev git go musl-dev pcre2-dev pcre-dev build-base automake libtool && \
     curl -L -o /tmp/v${NR_PHP_AGENT_VERSION}.zip https://github.com/newrelic/newrelic-php-agent/archive/refs/tags/v${NR_PHP_AGENT_VERSION}.zip && \
     cd /tmp && \
     unzip v${NR_PHP_AGENT_VERSION}.zip && \
