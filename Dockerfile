@@ -65,6 +65,7 @@ RUN apk add --no-cache \
         ln -s /usr/bin/php81 /usr/local/bin/php; \
         ln -s /usr/bin/phpize81 /usr/local/bin/phpize; \
         ln -s /usr/bin/pecl81 /usr/local/bin/pecl; \
+        ln -s /usr/bin/php-config81 /usr/local/bin/php-config; \
         sed -i \
                 -e "s/;\?date.timezone =.*/date.timezone = UTC/" \
                 -e "s/;\?opcache.blacklist_filename=.*/opcache.blacklist_filename=\/etc\/php.d\/opcache\*.blacklist/" \
