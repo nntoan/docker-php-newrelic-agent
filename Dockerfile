@@ -71,6 +71,7 @@ RUN apk add --no-cache \
 RUN mkdir -p /newrelic-php-agent/dist
 
 RUN apk add --no-cache \
+        bash \
         gettext \
         unzip \
         gzip \
@@ -82,7 +83,7 @@ RUN apk add --no-cache \
 
 # Install NewRelic
 RUN if [ "$TARGETARCH" = "amd64" ]; then \
-    apk add --no-cache --virtual .build-deps-nr bash g++ autoconf automake make libtool nasm libpng-dev libc6-compat && \
+    apk add --no-cache --virtual .build-deps-nr g++ autoconf automake make libtool nasm libpng-dev libc6-compat && \
     curl -L https://download.newrelic.com/php_agent/archive/${NR_PHP_AGENT_VERSION}/newrelic-php5-${NR_PHP_AGENT_VERSION}-linux-musl.tar.gz >> /tmp/newrelic-php5-${NR_PHP_AGENT_VERSION}-linux-musl.tar.gz && \
     cd /tmp && \
     tar -xzvf ./newrelic-php5-${NR_PHP_AGENT_VERSION}-linux-musl.tar.gz && \
@@ -93,7 +94,7 @@ RUN if [ "$TARGETARCH" = "amd64" ]; then \
     fi;
 
 RUN if [ "$TARGETARCH" = "arm64" ]; then \
-    apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community --virtual bash .build-deps-nr php81-dev git go musl-dev pcre2-dev pcre-dev build-base automake libtool && \
+    apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community --virtual .build-deps-nr php81-dev git go musl-dev pcre2-dev pcre-dev build-base automake libtool && \
     curl -L -o /tmp/v${NR_PHP_AGENT_VERSION}.zip https://github.com/newrelic/newrelic-php-agent/archive/refs/tags/v${NR_PHP_AGENT_VERSION}.zip && \
     cd /tmp && \
     unzip v${NR_PHP_AGENT_VERSION}.zip && \
